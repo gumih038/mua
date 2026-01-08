@@ -44,7 +44,7 @@
 
     <style>
         /* -------------------------------------------
-           カスタムCSS (ここにCSSを統合)
+           カスタムCSS
            ------------------------------------------- */
         body {
             font-family: 'Zen Kaku Gothic New', sans-serif;
@@ -130,6 +130,18 @@
         .hover\:pause-marquee:hover {
             animation-play-state: paused;
         }
+        
+        /* 画像読み込みエラー時のフォールバック非表示用 */
+        img.error {
+            display: none !important;
+        }
+        /* ロゴ画像の代替テキスト表示用 */
+        .logo-text-fallback {
+            display: none;
+        }
+        img.error + .logo-text-fallback {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-white relative">
@@ -179,12 +191,13 @@
         <div id="hero-bg-wrapper" class="absolute inset-0 will-change-transform will-change-opacity">
             <!-- 
                ★重要: ここにアップロードされた画像を指定しました。
-               HTMLファイルと同じフォルダに "IMG_0540 3.JPG" を置いてください。
+               HTMLファイルと同じフォルダに "IMG_0540 3.png" を置いてください。
             -->
-            <img src="IMG_0540 3.png" 
+            <img src="./IMG_0540 3.png" 
+                 onerror="this.src='https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?q=80&w=2070&auto=format&fit=crop'"
                  alt="MUA Atmosphere" 
                  class="w-full h-full object-cover opacity-100">
-            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="absolute inset-0 bg-black/20"></div>
         </div>
         
         <div id="hero-text-wrapper" class="absolute inset-0 flex flex-col justify-center items-center text-center z-10 px-4 will-change-transform">
@@ -193,13 +206,18 @@
                 
                 <!-- 
                    ★ロゴ画像について:
-                   こちらも同様にGitHubにアップロードし、ファイル名を確認してください。
-                   現在は仮のURLのままです。
+                   ファイル名を 'logo.png' に変更して同じフォルダに置いてください。
+                   画像がない場合は自動的に下のテキスト 'MUA' が表示されます。
                 -->
-                <div class="w-48 md:w-80 mb-8 relative">
-                    <img src="http://mua.local/wp-content/uploads/2025/12/ロゴ白.png" 
+                <div class="w-48 md:w-80 mb-8 relative flex justify-center">
+                    <img src="./logo.png" 
+                         onerror="this.classList.add('error')"
                          alt="MUA" 
                          class="w-full h-auto drop-shadow-heavy block">
+                    <!-- 画像がない場合のフォールバックテキスト -->
+                    <h1 class="logo-text-fallback font-en text-6xl md:text-8xl tracking-widest text-white drop-shadow-heavy m-0 leading-none">
+                        MUA
+                    </h1>
                 </div>
 
                 <p class="font-jp text-xs md:text-sm tracking-widest text-white drop-shadow-md leading-loose">
